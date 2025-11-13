@@ -4,3 +4,4 @@ project.txt
 project.org
 pyproject.toml
 db_credentials.py
+__pycache__/
