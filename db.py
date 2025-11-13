@@ -1,6 +1,25 @@
 import psycopg2
 import db_credentials
 
+def update_price(id: int, ts_price: int, sf_price: int):
+    conn = psycopg2.connect(
+        database="trade-scout",
+        host="localhost",
+        user=db_credentials.user,
+        password=db_credentials.password,
+        port="5432",
+    )
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "update products set ts_price = %s, sf_price = %s where id = %s",
+        (ts_price, sf_price, id),
+    )
+
+    conn.commit()
+    conn.close()
+
 
 def insert_new_product(
     name: str, ts_code: int, sf_code: int, qty: int, pack_size: str, description: str
@@ -53,6 +72,8 @@ def create_products_table():
     conn.close()
 
 def main():
+    get_all_products()
+    update_price(1, 100, 100)
     get_all_products()
 
 

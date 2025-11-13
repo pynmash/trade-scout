@@ -70,23 +70,25 @@ def get_ts_price(code: int):
 
 
 def main():
-    # db.create_products_table()
-    # for i in codes:
-    #     db.insert_new_product(
-    #         codes[i]["name"],
-    #         codes[i]["ts_code"],
-    #         codes[i]["sf_code"],
-    #         codes[i]["qty"],
-    #         codes[i]["pack_size"],
-    #         codes[i]["description"],
-    #     )
+    db.create_products_table()
+    for i in codes:
+        db.insert_new_product(
+            codes[i]["name"],
+            codes[i]["ts_code"],
+            codes[i]["sf_code"],
+            codes[i]["qty"],
+            codes[i]["pack_size"],
+            codes[i]["description"],
+        )
 
     all_products = db.get_all_products()
     for product in all_products:
         # 3 & 5 for prices
-        print(product[2], product[4])
+        # print(product)
         scraped_prices = (get_item_prices(product[2], product[4]))
-        
+        if product[3] != scraped_prices[0] or product[5] != scraped_prices[1]:
+            # print("different!")
+            db.update_price(product[0], *scraped_prices)
 
 
 if __name__ == "__main__":
