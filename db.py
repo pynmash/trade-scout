@@ -52,8 +52,9 @@ def create_db():
     conn.commit()
     conn.close()
 
+def main():
+    get_all_products()
 
 
-
-# cursor.execute("select * from products")
-# print(cursor.fetchall())
+if __name__ == "__main__":
+    main()
