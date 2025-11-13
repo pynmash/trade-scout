@@ -39,7 +39,7 @@ def get_all_products():
     conn.close()
 
 
-def create_db():
+def create_products_table():
     conn = psycopg2.connect(
     database="trade-scout", host="localhost", user=db_credentials.user, password=db_credentials.password, port="5432"
     )
