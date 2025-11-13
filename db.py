@@ -1,7 +1,7 @@
 import psycopg2
 
 
-def insert_new_product(name, ts_code, sf_code, description):
+def insert_new_product(name: str, ts_code: int, sf_code: int, description: str):
     cursor.execute(
         "insert into products (name, ts_code, ts_price, sf_code, sf_price, description) values (%s, %s, %s, %s, %s, %s)",
         (name, ts_code, 0, sf_code, 0, description),
