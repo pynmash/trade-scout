@@ -19,7 +19,7 @@ def insert_new_product(
     conn.commit()
     conn.close()
 
-def get_all_products():
+def get_all_products() -> list:
     conn = psycopg2.connect(
         database="trade-scout",
         host="localhost",
@@ -32,11 +32,11 @@ def get_all_products():
 
     cursor.execute("select * from products")
     rows = cursor.fetchall()
-    for row in rows:
-        print(row)
 
     conn.commit()
     conn.close()
+
+    return rows
 
 
 def create_products_table():
