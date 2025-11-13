@@ -26,15 +26,15 @@ codes = {
 def get_item_prices(ts_code: int, sf_code: int) -> tuple:
     ts_price = get_ts_price(ts_code)
     sf_price = get_sf_price(sf_code)
-    ts_price = get_ts_price(ts_code)
-    return (sf_price, ts_price)
+    return (ts_price, sf_price)
 
 
-def get_sf_price(code):
+def get_sf_price(code: int):
     headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
     }
     url = f"https://www.screwfix.com/p/{code}"
+    print(url)
     request = requests.get(url=url, headers=headers)
     if request.status_code == 200:
         data = request.text
@@ -44,13 +44,14 @@ def get_sf_price(code):
         price_right = soup.find(class_="xIIluZ")
         price_right_string = price_right.contents[2]
         price_string = f"{price_left_string}.{price_right_string}"
-        return price_string
+        price = int(float(price_string) * 100)
+        return price
     else:
         print(f"Failed with status code {request.status_code}")
         return
 
 
-def get_ts_price(code):
+def get_ts_price(code: int):
     headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
     }
@@ -62,16 +63,30 @@ def get_ts_price(code):
         soup = BeautifulSoup(data, "html.parser")
         toolstation_price_unparsed = soup.find("span", class_="md:text-size-9")
         toolstation_price = float(toolstation_price_unparsed.text.lstrip()[1:])
-        return toolstation_price
+        return int(toolstation_price * 100)
     else:
         print(f"Failed with status code {request.status_code}")
         return
 
 
 def main():
-    # sf_price = get_sf_price(codes["ptfe"][0])
-    # ts_price = get_ts_price(codes["ptfe"][1])
-    pass
+    # db.create_products_table()
+    # for i in codes:
+    #     db.insert_new_product(
+    #         codes[i]["name"],
+    #         codes[i]["ts_code"],
+    #         codes[i]["sf_code"],
+    #         codes[i]["qty"],
+    #         codes[i]["pack_size"],
+    #         codes[i]["description"],
+    #     )
+
+    all_products = db.get_all_products()
+    for product in all_products:
+        # 3 & 5 for prices
+        print(product[2], product[4])
+        scraped_prices = (get_item_prices(product[2], product[4]))
+        
 
 
 if __name__ == "__main__":
