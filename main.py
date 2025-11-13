@@ -4,11 +4,27 @@ import requests
 
 codes = {
     # Dictionary containing the item name as the key and a tuple for screwfix and toolstation codes respectively
-    "ptfe": ("63859", "35444")
+    0: {
+        "name": "ptfe",
+        "ts_code": 35444,
+        "sf_code": 63859,
+        "qty": 1,
+        "pack_size": "10 rolls",
+        "description": "plumber's tape",
+    },
+    1: {
+        "name": "isolator_valve",
+        "ts_code": 37336,
+        "sf_code": 32802,
+        "qty": 1,
+        "pack_size": "10 valves",
+        "description": "isolating valves",
+    },
 }
 
 
-def get_item_prices(sf_code, ts_code):
+def get_item_prices(ts_code: int, sf_code: int) -> tuple:
+    ts_price = get_ts_price(ts_code)
     sf_price = get_sf_price(sf_code)
     ts_price = get_ts_price(ts_code)
     return (sf_price, ts_price)
