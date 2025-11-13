@@ -47,7 +47,7 @@ def create_products_table():
     cursor = conn.cursor()
 
     cursor.execute(
-        "create table if not exists products(id serial, name varchar(255), ts_code int, ts_price int, sf_code int, sf_price int, description varchar(255));"
+        "create table if not exists products(id serial, name varchar(255), ts_code int, ts_price int, sf_code int, sf_price int, qty int, pack_size varchar(20), description varchar(255));"
     )
     conn.commit()
     conn.close()
