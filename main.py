@@ -54,7 +54,8 @@ def get_ts_price(code):
 
 def main():
     # sf_price = get_sf_price(codes["ptfe"][0])
-    ts_price = get_ts_price(codes["ptfe"][1])
+    # ts_price = get_ts_price(codes["ptfe"][1])
+    pass
 
 
 if __name__ == "__main__":
