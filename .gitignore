@@ -3,3 +3,4 @@ project.txt
 .python-version
 project.org
 pyproject.toml
+db_credentials.py

@@ -1,4 +1,5 @@
 import psycopg2
+import db_credentials
 
 
 def insert_new_product(
@@ -11,7 +12,7 @@ def insert_new_product(
 
 
 conn = psycopg2.connect(
-    database="trade-scout", host="localhost", user="dan", password="Leinad", port="5432"
+    database="trade-scout", host="localhost", user=db_credentials.user, password=db_credentials.password, port="5432"
 )
 
 cursor = conn.cursor()
